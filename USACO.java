@@ -7,7 +7,7 @@ public class USACO {
     for (int idx = 0; idx < ary.length; idx++) {
       output += "\n";
       for (int x = 0; x < ary[idx].length; x++) {
-        output += ary[idx][x];
+        output += ary[idx][x] + " ";
       }
     }
     System.out.println(output);
@@ -23,8 +23,8 @@ public class USACO {
     int c = 0;
     while (in.hasNextLine()) {
       r++;
-      String line = in.nextLine();
-      c = line.length();
+      String[] col = in.nextLine().split(" ");
+      c = col.length;
     }
     int[][] ary = new int[r][c];
     in = new Scanner(text);
