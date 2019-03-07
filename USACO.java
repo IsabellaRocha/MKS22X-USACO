@@ -21,9 +21,15 @@ public class USACO {
         ins[idx][x] = in.nextInt();
       }
     }
-
-    System.out.println(toString(field));
-    System.out.println(toString(ins));
+    for (int idx = 0; idx < ins.length; idx++) {
+      stomp(field, ins, idx);
+    }
+    for (int row = 0; row < R; row++) {
+      for (int col = 0; col < C; col++) {
+        if (E - field[row][col] > 0) field[row][col] = E - field[row][col];
+        else field[row][col] = 0;
+      }
+    }
     return 1;
   }
   private static String toString(int[][] field) {
@@ -49,6 +55,7 @@ public class USACO {
               Math.max(field[r + 1][c + 2],
               Math.max(field[r + 2][c + 1],
                        field[r + 2][c + 2]))))))));
+    System.out.println(max);
     for (int x = 0; x < stomps; x++) {
       for (int row = 0; row < r + 3; r++) {
         for (int col = 0; col < r + 3; col++) {
