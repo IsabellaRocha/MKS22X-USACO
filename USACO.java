@@ -50,7 +50,14 @@ public class USACO {
               Math.max(field[r + 2][c + 1],
                        field[r + 2][c + 2]))))))));
     for (int x = 0; x < stomps; x++) {
-
+      for (int row = 0; row < r + 3; r++) {
+        for (int col = 0; col < r + 3; col++) {
+          if (field[row][col] == max) {
+            field[row][col]--;
+          }
+        }
+      }
+      max--;
     }
   }
   public static int silver(String filename) {
