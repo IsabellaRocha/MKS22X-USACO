@@ -30,7 +30,13 @@ public class USACO {
         else field[row][col] = 0;
       }
     }
-    return 1;
+    int depth = 0;
+    for (int row = 0; row < R; row++) {
+      for (int col = 0; col < C; col++) {
+        depth += field[row][col];
+      }
+    }
+    return depth * 72 * 72;
   }
   private static String toString(int[][] field) {
     String output = "";
@@ -55,12 +61,11 @@ public class USACO {
               Math.max(field[r + 1][c + 2],
               Math.max(field[r + 2][c + 1],
                        field[r + 2][c + 2]))))))));
-    System.out.println(max);
     for (int x = 0; x < stomps; x++) {
-      for (int row = 0; row < r + 3; r++) {
-        for (int col = 0; col < r + 3; col++) {
-          if (field[row][col] == max) {
-            field[row][col]--;
+      for (int R_s = 0; R_s < r + 3; R_s++) {
+        for (int C_s = 0; C_s < c + 3; C_s++) {
+          if (field[R_s][C_s] == max) {
+            field[R_s][C_s]--;
           }
         }
       }
