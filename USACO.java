@@ -2,39 +2,30 @@ import java.io.*;
 import java.util.*;
 public class USACO {
   public static int bronze(String filename) throws FileNotFoundException{
-    int[][] ary = makeArray(filename);
-    String output = "";
-    for (int idx = 0; idx < ary.length; idx++) {
-      output += "\n";
-      for (int x = 0; x < ary[idx].length; x++) {
-        output += ary[idx][x] + " ";
+    File text = new File(filename);
+    Scanner in = new Scanner(text);
+    int R = in.nextInt();
+    int C = in.nextInt();
+    int E = in.nextInt();
+    int N = in.nextInt();
+    int[][] ary = new int[R][C];
+    for (int i = 0; i < R; i++) {
+      for (int idx = 0; idx < C; idx++) {
+        ary[i][idx] = in.nextInt();
       }
     }
-    System.out.println(output);
+    int[][] ins = new int[N][3];
+    for (int idx = 0; idx < N; idx++) {
+      for (int x = 0; x < 3; x++) {
+        ins[idx][x] = in.nextInt();
+      }
+    }
+    System.out.println(Arrays.toString(ary));
+    System.out.println(Arrays.toString(ins));
     return 1;
   }
   public static int silver(String filename) {
     return 1;
-  }
-  private static int[][] makeArray(String x) throws FileNotFoundException{
-    File text = new File(x);
-    Scanner in = new Scanner(text);
-    int r = 0;
-    int c = 0;
-    while (in.hasNextLine()) {
-      r++;
-      String[] col = in.nextLine().split(" ");
-      c = col.length;
-    }
-    int[][] ary = new int[r][c];
-    in = new Scanner(text);
-    for (int i = 0; i < r; i++) {
-      String[] row = in.nextLine().split(" ");
-      for (int idx = 0; idx < c; idx++) {
-        ary[i][idx] = Integer.parseInt(row[idx]);
-      }
-    }
-    return ary;
   }
   public static void main(String[] args) {
     try {
