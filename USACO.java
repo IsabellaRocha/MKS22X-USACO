@@ -8,7 +8,6 @@ public class USACO {
     int C = in.nextInt();
     int E = in.nextInt();
     int N = in.nextInt();
-    System.out.println(R);
     int[][] field = new int[R][C];
     for (int idx = 0; idx < R; idx++) {
       for (int x = 0; x < C; x++) {
@@ -22,7 +21,7 @@ public class USACO {
       }
     }
     for (int idx = 0; idx < ins.length; idx++) {
-      stomp(field, ins, idx);
+      field = stomp(field, ins, idx);
     }
     for (int row = 0; row < R; row++) {
       for (int col = 0; col < C; col++) {
@@ -48,7 +47,7 @@ public class USACO {
     }
     return output;
   }
-  private static void stomp(int[][] field, int[][] ins, int idx) {
+  private static int[][] stomp(int[][] field, int[][] ins, int idx) {
     int r = ins[idx][0] - 1;
     int c = ins[idx][1] - 1;
     int stomps = ins[idx][2];
@@ -62,22 +61,23 @@ public class USACO {
               Math.max(field[r + 2][c + 1],
                        field[r + 2][c + 2]))))))));
     for (int x = 0; x < stomps; x++) {
-      for (int R_s = 0; R_s < r + 3; R_s++) {
-        for (int C_s = 0; C_s < c + 3; C_s++) {
-          if (field[R_s][C_s] == max) {
-            field[R_s][C_s]--;
+      for (int row = 0; row < r + 3; row++) {
+        for (int col = 0; col < c + 3; col++) {
+          if (field[row][col] == max) {
+            field[row][col]--;
           }
         }
       }
       max--;
     }
+    return field;
   }
   public static int silver(String filename) {
     return 1;
   }
   public static void main(String[] args) {
     try {
-      bronze("test.txt");
+      System.out.println(bronze("makelake.in"));
     }
     catch (FileNotFoundException e) {}
   }
