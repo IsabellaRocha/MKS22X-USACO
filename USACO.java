@@ -8,26 +8,48 @@ public class USACO {
     int M = in.nextInt();
     int T = in.nextInt();
     String line = in.nextLine();
-    char[][] field = new char[N][M];
+    int[][] field = new int[N][M];
     for (int idx = 0; idx < N; idx++) {
       line = in.nextLine();
       for (int x = 0; x < line.length(); x++) {
-        field[idx][x] = line.charAt(x);
+        if (line.charAt(x) == '.') field[idx][x] = 0;
+        else field[idx][x] = 1;
       }
     }
     int R1 = in.nextInt();
     int C1 = in.nextInt();
     int R2 = in.nextInt();
     int C2 = in.nextInt();
-    int[][] poss = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-    return 1;
-  }
-  private boolean canMove(int row, int col, int idx, int[][] poss, int[][] field) {
-    try {
-      return field[row + poss[idx][0]][col + poss[idx][1]] != '*';
+    for (int x = 0; x < T; x++) {
+      field = move(field);
     }
-    catch(IndexOutOfBoundsException e) {}
-    return false;
+    return field[R2][C2];
+  }
+  private static boolean canMove(int row, int col, int[][] field) {
+    return (row >= 0 || col >= 0 || row < field.length || col < field[0].length);
+  }
+  private static int[][] move(int[][] field) {
+    int[][] poss = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+    int[][] moves = new int[field.length][field[0].length];
+    for (int idx = 0; idx < moves.length; idx++) {
+      for (int x = 0; x < moves[idx].length; x++) {
+        if (field[idx][x] == 1) {
+          moves[idx][x] = 1;
+        }
+        else {
+          int current = 0;
+          for (int i = 0; i < 4; i++) {
+            int newRow = idx + poss[idx][0];
+            int newCol = idx + poss[idx][1];
+            if (canMove(newRow, newCol, field)) {
+              current += field[newRow][newCol];
+            }
+          }
+          moves[idx][x] = current;
+        }
+      }
+    }
+    return moves;
   }
   public static int bronze(String filename){
     try {
@@ -80,16 +102,6 @@ public class USACO {
     }
     return output;
   }
-  private static String toString(char[][] field) {
-    String output = "";
-    for (int idx = 0; idx < field.length; idx++) {
-      output += "\n";
-      for (int x = 0; x < field[idx].length; x++) {
-        output += field[idx][x] + " ";
-      }
-    }
-    return output;
-  }
   private static int[][] stomp(int[][] field, int[][] ins, int idx) {
     int r = ins[idx][0] - 1;
     int c = ins[idx][1] - 1;
@@ -118,5 +130,9 @@ public class USACO {
   public static void main(String[] args) {
     System.out.println(bronze("makelake.in"));
     System.out.println(bronze("testCases/makelake.2.in"));
+    try {
+      silver("ctravel.in");
+    }
+    catch (FileNotFoundException e) {}
   }
 }
