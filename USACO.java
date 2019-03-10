@@ -1,6 +1,26 @@
 import java.io.*;
 import java.util.*;
 public class USACO {
+  public static int silver(String filename) throws FileNotFoundException{
+    File text = new File(filename);
+    Scanner in = new Scanner(text);
+    int N = in.nextInt();
+    int M = in.nextInt();
+    int T = in.nextInt();
+    String line = in.nextLine();
+    char[][] field = new char[N][M];
+    for (int idx = 0; idx < N; idx++) {
+      line = in.nextLine();
+      for (int x = 0; x < line.length(); x++) {
+        field[idx][x] = line.charAt(x);
+      }
+    }
+    int R1 = in.nextInt();
+    int C1 = in.nextInt();
+    int R2 = in.nextInt();
+    int C2 = in.nextInt();
+    return 1;
+  }
   public static int bronze(String filename) throws FileNotFoundException{
     File text = new File(filename);
     Scanner in = new Scanner(text);
@@ -47,6 +67,16 @@ public class USACO {
     }
     return output;
   }
+  private static String toString(char[][] field) {
+    String output = "";
+    for (int idx = 0; idx < field.length; idx++) {
+      output += "\n";
+      for (int x = 0; x < field[idx].length; x++) {
+        output += field[idx][x] + " ";
+      }
+    }
+    return output;
+  }
   private static int[][] stomp(int[][] field, int[][] ins, int idx) {
     int r = ins[idx][0] - 1;
     int c = ins[idx][1] - 1;
@@ -72,12 +102,10 @@ public class USACO {
     }
     return field;
   }
-  public static int silver(String filename) {
-    return 1;
-  }
   public static void main(String[] args) {
     try {
       System.out.println(bronze("makelake.in"));
+      silver("ctravel.in");
     }
     catch (FileNotFoundException e) {}
   }
