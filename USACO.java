@@ -1,57 +1,6 @@
 import java.io.*;
 import java.util.*;
 public class USACO {
-  public static int silver(String filename) throws FileNotFoundException{
-    File text = new File(filename);
-    Scanner in = new Scanner(text);
-    int N = in.nextInt();
-    int M = in.nextInt();
-    int T = in.nextInt();
-    String line = in.nextLine();
-    int[][] field = new int[N][M];
-    for (int idx = 0; idx < N; idx++) {
-      line = in.nextLine();
-      for (int x = 0; x < line.length(); x++) {
-        if (line.charAt(x) == '.') field[idx][x] = 0;
-        else field[idx][x] = -1;
-      }
-    }
-    int R1 = in.nextInt() - 1;
-    int C1 = in.nextInt() - 1;
-    int R2 = in.nextInt() - 1;
-    int C2 = in.nextInt() - 1;
-    field[R1][C1] = 1;
-    for (int x = 0; x < T; x++) {
-      field = move(field);
-    }
-    return field[R2][C2];
-  }
-  private static boolean canMove(int row, int col, int[][] field) {
-    return (row >= 0 && col >= 0 && row < field.length && col < field[0].length);
-  }
-  private static int[][] move(int[][] field) {
-    int[][] poss = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-    int[][] moves = new int[field.length][field[0].length];
-    for (int idx = 0; idx < moves.length; idx++) {
-      for (int x = 0; x < moves[idx].length; x++) {
-        if (field[idx][x] == -1) {
-          moves[idx][x] = -1;
-        }
-        else {
-          int current = 0;
-          for (int i = 0; i < 4; i++) {
-            int newRow = idx + poss[i][0];
-            int newCol = x + poss[i][1];
-            if (canMove(newRow, newCol, field) && field[newRow][newCol] != -1) {
-              current += field[newRow][newCol];
-            }
-          }
-          moves[idx][x] = current;
-        }
-      }
-    }
-    return moves;
-  }
   public static int bronze(String filename){
     try {
       File text = new File(filename);
@@ -93,16 +42,6 @@ public class USACO {
       return 0;
     }
   }
-  private static String toString(int[][] field) {
-    String output = "";
-    for (int idx = 0; idx < field.length; idx++) {
-      output += "\n";
-      for (int x = 0; x < field[idx].length; x++) {
-        output += field[idx][x] + " ";
-      }
-    }
-    return output;
-  }
   private static int[][] stomp(int[][] field, int[][] ins, int idx) {
     int r = ins[idx][0] - 1;
     int c = ins[idx][1] - 1;
@@ -128,12 +67,60 @@ public class USACO {
     }
     return field;
   }
-  public static void main(String[] args) {
-    System.out.println(bronze("makelake.in"));
-    System.out.println(bronze("testCases/makelake.2.in"));
+  public static int silver(String filename){
     try {
-      System.out.println(silver("ctravel.in"));
+      File text = new File(filename);
+      Scanner in = new Scanner(text);
+      int N = in.nextInt();
+      int M = in.nextInt();
+      int T = in.nextInt();
+      String line = in.nextLine();
+      int[][] field = new int[N][M];
+      for (int idx = 0; idx < N; idx++) {
+        line = in.nextLine();
+        for (int x = 0; x < line.length(); x++) {
+          if (line.charAt(x) == '.') field[idx][x] = 0;
+          else field[idx][x] = -1;
+        }
+      }
+      int R1 = in.nextInt() - 1;
+      int C1 = in.nextInt() - 1;
+      int R2 = in.nextInt() - 1;
+      int C2 = in.nextInt() - 1;
+      field[R1][C1] = 1;
+      for (int x = 0; x < T; x++) {
+        field = move(field);
+      }
+      return field[R2][C2];
     }
-    catch (FileNotFoundException e) {}
+    catch (FileNotFoundException e) {
+      return 0;
+    }
+  }
+  private static boolean canMove(int row, int col, int[][] field) {
+    return (row >= 0 && col >= 0 && row < field.length && col < field[0].length);
+  }
+  private static int[][] move(int[][] field) {
+    int[][] poss = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+    int[][] moves = new int[field.length][field[0].length];
+    for (int idx = 0; idx < moves.length; idx++) {
+      for (int x = 0; x < moves[idx].length; x++) {
+        if (field[idx][x] == -1) {
+          moves[idx][x] = -1;
+        }
+        else {
+          int current = 0;
+          for (int i = 0; i < 4; i++) {
+            int newRow = idx + poss[i][0];
+            int newCol = x + poss[i][1];
+            if (canMove(newRow, newCol, field) && field[newRow][newCol] != -1) {
+              current += field[newRow][newCol];
+            }
+          }
+          moves[idx][x] = current;
+        }
+      }
+    }
+    return moves;
   }
 }
