@@ -16,17 +16,17 @@ public class USACO {
         else field[idx][x] = 1;
       }
     }
-    int R1 = in.nextInt();
-    int C1 = in.nextInt();
-    int R2 = in.nextInt();
-    int C2 = in.nextInt();
+    int R1 = in.nextInt() - 1;
+    int C1 = in.nextInt() - 1;
+    int R2 = in.nextInt() - 1;
+    int C2 = in.nextInt() - 1;
     for (int x = 0; x < T; x++) {
       field = move(field);
     }
     return field[R2][C2];
   }
   private static boolean canMove(int row, int col, int[][] field) {
-    return (row >= 0 || col >= 0 || row < field.length || col < field[0].length);
+    return (row >= 0 && col >= 0 && row < field.length && col < field[0].length);
   }
   private static int[][] move(int[][] field) {
     int[][] poss = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
@@ -39,9 +39,9 @@ public class USACO {
         else {
           int current = 0;
           for (int i = 0; i < 4; i++) {
-            int newRow = idx + poss[idx][0];
-            int newCol = idx + poss[idx][1];
-            if (canMove(newRow, newCol, field)) {
+            int newRow = idx + poss[i][0];
+            int newCol = x + poss[i][1];
+            if (canMove(newRow, newCol, field) && field[newRow][newCol] != 1) {
               current += field[newRow][newCol];
             }
           }
@@ -131,7 +131,7 @@ public class USACO {
     System.out.println(bronze("makelake.in"));
     System.out.println(bronze("testCases/makelake.2.in"));
     try {
-      silver("ctravel.in");
+      System.out.println(silver("ctravel.in"));
     }
     catch (FileNotFoundException e) {}
   }
