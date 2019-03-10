@@ -13,13 +13,14 @@ public class USACO {
       line = in.nextLine();
       for (int x = 0; x < line.length(); x++) {
         if (line.charAt(x) == '.') field[idx][x] = 0;
-        else field[idx][x] = 1;
+        else field[idx][x] = -1;
       }
     }
     int R1 = in.nextInt() - 1;
     int C1 = in.nextInt() - 1;
     int R2 = in.nextInt() - 1;
     int C2 = in.nextInt() - 1;
+    field[R1][C1] = 1;
     for (int x = 0; x < T; x++) {
       field = move(field);
     }
@@ -33,15 +34,15 @@ public class USACO {
     int[][] moves = new int[field.length][field[0].length];
     for (int idx = 0; idx < moves.length; idx++) {
       for (int x = 0; x < moves[idx].length; x++) {
-        if (field[idx][x] == 1) {
-          moves[idx][x] = 1;
+        if (field[idx][x] == -1) {
+          moves[idx][x] = -1;
         }
         else {
           int current = 0;
           for (int i = 0; i < 4; i++) {
             int newRow = idx + poss[i][0];
             int newCol = x + poss[i][1];
-            if (canMove(newRow, newCol, field) && field[newRow][newCol] != 1) {
+            if (canMove(newRow, newCol, field) && field[newRow][newCol] != -1) {
               current += field[newRow][newCol];
             }
           }
